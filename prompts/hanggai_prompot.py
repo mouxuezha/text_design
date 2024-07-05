@@ -1,9 +1,16 @@
 # https://www.xuetangx.com/learn/BUAA08201000711/BUAA08201000711/19317637/exercise/42949890?channel=i.area.course_list_all
 # 学堂在线上面的航空航天技术课程，的技术部分的课后练习题拿，拿过来了。
+import pickle,os 
+import os.path
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from prompts.base_prompts import base_prompot
 
-class hanggai_prompot():
+class hanggai_prompot(base_prompot):
     def __init__(self) -> None:
-        self.timu_dic = {} 
+        super.__init__()
+        self.name = r"auto_test/hanggai_prompot.pkl"
+        self.get_neirong()
         pass
 
     def get_neirong(self):
@@ -428,5 +435,8 @@ class hanggai_prompot():
 
     def get_neirong_single(self,timu,neirong):
         num_single = len(self.timu_dic) + 1
-        timu_dict_single = {"timu":timu,"daan":neirong}
+        timu_dict_single = {"题目":timu,"参考答案":neirong,"答案":"void","对错":"None"}
         self.timu_dic[str(num_single)] = timu_dict_single   
+
+if __name__ == "__main__":
+    hanggai = hanggai_prompot()
