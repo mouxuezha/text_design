@@ -1,3 +1,13 @@
+.vscode
+model_communication/AK.txt
+model_communication/SK.txt
+model_communication/ZK.txt
+model_communication/log.txt
+.history
+overall_result.txt 
+auto_test
+socket_communication/config.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
