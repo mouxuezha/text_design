@@ -1,6 +1,10 @@
 numpy
 matplotlib
 xlrd
+
+pymupdf
+cnocr
+
 qianfan
 langchain
 langchain_community
