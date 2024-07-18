@@ -87,7 +87,7 @@ class ocr_from_pdf():
         geshu = len(pdf_list)
         for i in range(geshu):
             self.ocr_pdf_single(pdf_list[i])
-            print(pdf_list[i]+"第"+str(i)+"本完成识别,"+str(i/geshu))
+            print(pdf_list[i]+"第"+str(i+1)+"本完成识别,"+str((i+1)/geshu))
         pass
     
     def del_all_png(self, folder):

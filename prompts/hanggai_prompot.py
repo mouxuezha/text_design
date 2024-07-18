@@ -10,6 +10,7 @@ class hanggai_prompot(base_prompot):
     def __init__(self) -> None:
         super.__init__()
         self.name = r"auto_test/hanggai_prompot.pkl"
+        self.num = 0 
         self.get_neirong()
         pass
 
@@ -435,8 +436,51 @@ class hanggai_prompot(base_prompot):
 
     def get_neirong_single(self,timu,neirong):
         num_single = len(self.timu_dic) + 1
+        self.num = num_single
         timu_dict_single = {"题目":timu,"参考答案":neirong,"答案":"void","对错":"None"}
         self.timu_dic[str(num_single)] = timu_dict_single   
+    
+    def get_timu_index(self,index: int):
+        # 找出相应的题目
+        timu_dict_single = self.timu_dic[str(index)]
+        return timu_dict_single["题目"]
+    
+    def get_cankao_daan_index(self,index: int):
+        # 找出相应的参考答案
+        timu_dict_single = self.timu_dic[str(index)]
+        return timu_dict_single["参考答案"]
 
+    def get_daan_index(self,index: int):
+        # 找出相应的答案
+        timu_dict_single = self.timu_dic[str(index)]
+        return timu_dict_single["答案"]
+
+    def get_cankao_daan_timu(self,timu:str):
+        # 根据题目检索答案
+        for value in self.timu_dic:
+            if self.timu_dic[value]["题目"] == timu:
+                return self.timu_dic[value]["参考答案"]
+        return "None"
+    
+    def save_daan_index(self,index: int,daan: str):
+        # 保存答案
+        self.timu_dic[str(index)]["答案"] = daan
+    
+    def save_TF_index(self,index: int,TF: bool):
+        # 保存对错
+        if TF:
+            self.timu_dic[str(index)]["对错"] = "True"
+        else:
+            self.timu_dic[str(index)]["对错"] = "False"
+        print("第{}题，鉴定为：{}".format(index,"答对了" if TF else "答错了"))
+    
+    def save_results(self, location=r"auto_test/base_prompot.pkl"):
+        self.name = location
+        return super().save_results()
+    
+    def load_results(self, location=r"auto_test/base_prompot.pkl"):
+        self.name = location
+        return super().load_results()
+    
 if __name__ == "__main__":
     hanggai = hanggai_prompot()
