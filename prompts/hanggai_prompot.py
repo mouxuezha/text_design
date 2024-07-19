@@ -8,7 +8,7 @@ from prompts.base_prompts import base_prompot
 
 class hanggai_prompot(base_prompot):
     def __init__(self) -> None:
-        super.__init__()
+        base_prompot.__init__(self)
         self.name = r"auto_test/hanggai_prompot.pkl"
         self.num = 0 
         self.get_neirong()
@@ -466,13 +466,14 @@ class hanggai_prompot(base_prompot):
         # 保存答案
         self.timu_dic[str(index)]["答案"] = daan
     
-    def save_TF_index(self,index: int,TF: bool):
+    def save_TF_index(self,index: int,TF: str):
         # 保存对错
-        if TF:
+        if (TF=="1")or (TF=="T"):
             self.timu_dic[str(index)]["对错"] = "True"
+            print("第{}题，鉴定为：{}".format(index,"答对了"))
         else:
             self.timu_dic[str(index)]["对错"] = "False"
-        print("第{}题，鉴定为：{}".format(index,"答对了" if TF else "答错了"))
+            print("第{}题，鉴定为：{}".format(index,"答错了"))
     
     def save_results(self, location=r"auto_test/base_prompot.pkl"):
         self.name = location
@@ -482,5 +483,17 @@ class hanggai_prompot(base_prompot):
         self.name = location
         return super().load_results()
     
+    def get_overall_performance(self,location=r"auto_test/base_prompot.pkl"):
+        self.name = location
+        self.load_results(location=location)
+        # 然后统计一下总分。
+        self.total_score = 0
+        for i in range(1,self.num+1):
+            if self.timu_dic[str(i)]["对错"] == "True":
+                self.total_score += 1
+        bili = self.total_score / self.num
+        print("总共有{}题，答对了{}题，正确率是{}".format(self.num,self.total_score,bili))
+
+
 if __name__ == "__main__":
     hanggai = hanggai_prompot()

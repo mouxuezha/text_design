@@ -1,7 +1,7 @@
 import pickle,os 
 
 class base_prompot():
-    def __init__(self) -> None:
+    def __init__(self):
         self.timu_dic = {} 
         self.name = r"auto_test/base_prompot.pkl"
         pass
